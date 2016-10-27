@@ -1,6 +1,6 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
-= form_tag movies_path, :method => :get do
+= form_tag movies_path, :method => :get, :id => 'ratings_form' do
   Include:
   - Movie.allRatings.each do |rating|
     = rating
@@ -10,11 +10,9 @@
 %table#movies
   %thead
     %tr
-      %th{:class => @title_header}
-        = link_to 'Movie Titles', movies_path(:title => "sort"), {:id => "title_header"}
+      %th{:class => @title_header}= link_to 'Movie Title', movies_path(:sort => 'title', :ratings => @selected_ratings), :id => 'title_header'
       %th Rating
-      %th{:class => @release_date_header}
-        = link_to 'Release Date', movies_path(:release_date => "sort"), {:id => "release_date_header"} 
+      %th{:class => @release_date_header}= link_to 'Release Date', movies_path(:sort => 'release_date', :ratings => @selected_ratings), :id => 'release_date_header'
       %th More Info
   %tbody
     - @movies.each do |movie|
