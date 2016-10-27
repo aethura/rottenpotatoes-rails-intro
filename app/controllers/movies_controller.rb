@@ -17,6 +17,10 @@ class MoviesController < ApplicationController
       @selected_ratings = Hash[Movie.allRatings.map {|rating| [rating, rating]}]
     end
     
+    if params[:sort] != session[:sort] or params[:ratings] != session[:ratings]
+      session[:sort] = params[:sort]
+      session[:ratings] = @selected_ratings
+    end
     movieList = Movie.where(rating: @selected_ratings.keys)
     
     if params[:title] == "sort"
